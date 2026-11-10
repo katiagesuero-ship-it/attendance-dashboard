@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Le mie presenze · Demo portfolio di Katia Gesuero</title>
+  <meta name="description" content="Una necessità quotidiana diventa un progetto: dashboard interattiva per monitorare ritardi, uscite anticipate e assenze. Demo con dati di esempio, realizzata con supporto IA.">
+  <meta property="og:title" content="Le mie presenze · Dashboard assenze">
+  <meta property="og:description" content="Un progetto formativo di Katia Gesuero, realizzato con supporto IA. Prova la demo interattiva con dati di esempio.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#7057a8">
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTgiIGZpbGw9IiM3MDU3YTgiLz48cGF0aCBkPSJNMTggMjFoMjh2MjdIMTh6TTI0IDE2djEwbTE2LTEwdjEwTTE4IDMwaDI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0ibTI1IDM5IDUgNSAxMC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDZlNmE5IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPgo=" type="image/svg+xml"><style>
+:root {
+  --page: #f7f6fb;
+  --surface: #ffffff;
+  --ink: #29253a;
+  --muted: #777285;
+  --purple: #7057a8;
+  --purple-dark: #58418b;
+  --purple-light: #f0ebf8;
+  --line: #ebe8f1;
+  --danger: #a23d42;
+  --danger-light: #fdf0ee;
+  --sage: #526e5d;
+  --radius: 18px;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--page);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+* { box-sizing: border-box; }
+html { min-width: 320px; scroll-behavior: smooth; }
+body { margin: 0; font-size: 14px; line-height: 1.55; }
+button, input, textarea { font: inherit; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; cursor: pointer; }
+button { transition: background .16s ease, border-color .16s ease, box-shadow .16s ease, color .16s ease; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+a { color: inherit; text-decoration: none; }
+svg { display: block; flex-shrink: 0; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 650; }
+h2 { font-size: 17px; line-height: 1.4; letter-spacing: -.3px; }
+h3 { font-size: 14px; line-height: 1.45; }
+strong { font-weight: 650; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #9e85d0;
+  outline-offset: 3px;
+}
+::selection { background: #e2d8f4; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.app-shell { min-height: 100dvh; }
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; width: 224px; z-index: 20;
+  display: flex; flex-direction: column; padding: 34px 18px 22px;
+  background: var(--surface); border-right: 1px solid var(--line);
+  overflow-y: auto;
+}
+.brand { display: flex; align-items: center; gap: 12px; width: fit-content; margin: 0 10px 46px; line-height: 1.16; font-size: 18px; letter-spacing: -.4px; }
+.brand strong { font-weight: 730; }
+.brand-icon { display: grid; place-items: center; width: 43px; height: 46px; border-radius: 13px; color: var(--purple); background: var(--purple-light); }
+.nav-label, .eyebrow { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1.25px; line-height: 1.6; }
+.nav-label { padding: 0 14px; margin-bottom: 12px; color: #8a8496; }
+.sidebar nav { display: grid; gap: 6px; }
+.nav-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 45px; padding: 11px 14px; border: 0; border-radius: 10px; color: #777181; background: transparent; text-align: left; font-size: 13px; font-weight: 550; }
+.nav-item svg:last-child:not(:first-child) { margin-left: auto; }
+.nav-item:hover { background: #f8f6fc; color: var(--purple-dark); }
+.nav-item.active { background: var(--purple-light); color: var(--purple-dark); font-weight: 650; }
+.sidebar-course { margin: auto 9px 26px; padding: 22px 17px 19px; border-radius: 14px; background: #faf9fc; border: 1px solid #f0edf5; }
+.sidebar-course .small-icon { margin-bottom: 13px; background: #f0ebf8; }
+.sidebar-course strong { display: block; font-size: 13px; }
+.sidebar-course p { margin: 7px 0 14px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.sidebar-course > span { display: block; color: var(--purple); font-size: 10px; font-weight: 650; }
+.sidebar nav + .sidebar-course { margin-top: max(48px, 16vh); }
+.sidebar-bottom { display: flex; gap: 10px; align-items: center; padding: 19px 5px 0; border-top: 1px solid var(--line); }
+.avatar { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; background: #f1e9e2; color: #886e5b; font-size: 12px; font-weight: 700; }
+.sidebar-bottom strong { display: block; font-size: 10px; white-space: nowrap; }
+.sidebar-bottom span { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 10px; margin-top: 3px; }
+.main { min-width: 0; margin-left: 224px; }
+.topbar { height: 76px; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.62); }
+.breadcrumb { display: flex; align-items: center; gap: 10px; color: #8a8496; font-size: 12px; }
+.breadcrumb strong { color: #575164; font-weight: 550; }
+.sync-state { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #64816d; white-space: nowrap; }
+.sync-error { color: var(--danger); }
+.main-content { max-width: 1280px; margin: 0 auto; padding: 34px 40px 28px; }
+.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+.page-heading .eyebrow { color: #898094; margin-bottom: 7px; }
+h1 { font-size: 34px; line-height: 1.2; letter-spacing: -1.1px; font-weight: 650; }
+.page-heading p { margin-top: 9px; font-size: 13px; color: var(--muted); }
+.page-heading > .button { flex-shrink: 0; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 10px 16px; border-radius: 9px; border: 1px solid transparent; font-size: 12px; font-weight: 650; line-height: 1.35; text-align: center; }
+.button.primary { color: white; background: var(--purple); border-color: var(--purple); box-shadow: 0 3px 7px #7057a817; }
+.button.primary:hover:not(:disabled) { background: var(--purple-dark); border-color: var(--purple-dark); box-shadow: 0 4px 12px #7057a82a; }
+.button.secondary { background: white; color: #635974; border-color: #e1dbe9; }
+.button.secondary:hover:not(:disabled) { border-color: #beaacf; background: #fbf9fe; }
+.button.small { min-height: 36px; padding: 8px 12px; font-size: 11px; }
+.button.danger-button { color: white; background: var(--danger); border-color: var(--danger); }
+.button.danger-button:hover:not(:disabled) { background: #872d32; }
+.text-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 5px 0; border: 0; background: transparent; color: var(--purple); font-size: 11px; font-weight: 650; text-align: left; }
+.text-button:hover:not(:disabled) { color: var(--purple-dark); text-decoration: underline; text-underline-offset: 3px; }
+.icon-button { display: inline-grid; place-items: center; padding: 7px; width: 32px; height: 32px; border: 0; border-radius: 8px; color: #8a8297; background: transparent; }
+.icon-button:hover:not(:disabled) { background: var(--purple-light); color: var(--purple-dark); }
+.icon-button.delete:hover:not(:disabled) { background: var(--danger-light); color: var(--danger); }
+.card { min-width: 0; border: 1px solid var(--line); background: white; border-radius: var(--radius); box-shadow: 0 2px 4px #34304902; }
+.balance-card { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 227px; padding: 29px 42px 29px 32px; border-radius: 20px; border: 1px solid #e5dff1; background: linear-gradient(110deg,#eeebf7 0%,#f3f0fa 70%,#efeaf7 100%); overflow: hidden; }
+.balance-copy { min-width: 0; }
+.balance-copy .eyebrow { color: #7c6c98; font-size: 10px; letter-spacing: 1.2px; }
+.balance-number { display: flex; align-items: baseline; gap: 10px; margin: 9px 0 7px; color: #4a386a; font-size: 54px; font-weight: 680; line-height: 1.2; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
+.balance-number span { color: #857695; font-size: 17px; font-weight: 500; letter-spacing: 0; margin-right: 5px; }
+.balance-copy > p { max-width: 480px; color: #7b6d8d; font-size: 12px; line-height: 1.65; }
+.status-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 5px 10px; border-radius: 20px; background: #e6eee6; color: #526b59; font-size: 10px; font-weight: 650; }
+.status-badge > span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.status-badge.status-empty { color: #77658f; background: #e6e0f0; }
+.status-badge.status-attention { color: #8d652d; background: #f6ebd5; }
+.status-badge.status-critical, .status-badge.status-limit { color: #985e31; background: #f9e7d6; }
+.status-badge.status-exceeded { color: #a14142; background: #f7dedc; }
+.balance-card.status-exceeded { background: linear-gradient(110deg,#fbeeea,#fff7f5); border-color: #ecd5d0; }
+.balance-card.status-exceeded .balance-number { color: var(--danger); }
+.balance-card.status-exceeded .balance-copy > p { color: #986c67; }
+.balance-card.status-critical, .balance-card.status-limit { border-color: #e8d7c6; }
+.quota-ring { position: relative; width: 156px; height: 156px; flex-shrink: 0; color: #8570ba; }
+.quota-ring svg { width: 100%; height: 100%; }
+.quota-ring > div { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; }
+.quota-ring strong { color: #58466e; font-size: 25px; letter-spacing: -.7px; line-height: 1.15; }
+.quota-ring span { color: #8a7e99; text-align: center; font-size: 10px; line-height: 1.5; }
+.status-exceeded .quota-ring { color: #bd6c66; }
+.status-critical .quota-ring, .status-limit .quota-ring { color: #b78250; }
+.metric-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 17px; margin: 20px 0; }
+.metric { position: relative; display: flex; flex-direction: column; padding: 24px 22px 22px; min-height: 159px; }
+.metric-icon { display: grid; place-items: center; width: 37px; height: 37px; border-radius: 10px; margin-bottom: 14px; }
+.lavender { color: #8766ad; background: #f1ebf8; }
+.peach { color: #b3835b; background: #fcf0e7; }
+.green { color: #74927d; background: #edf4ef; }
+.metric-label { color: #777081; font-size: 11px; }
+.metric > strong { margin-top: 4px; color: #393145; font-size: 24px; line-height: 1.35; letter-spacing: -.8px; font-variant-numeric: tabular-nums; }
+.metric > strong > span { font-size: 14px; font-weight: 400; color: #a39aaa; letter-spacing: -.2px; }
+.metric small { display: block; color: #8a8294; font-size: 10px; margin-top: 6px; line-height: 1.5; }
+.start-note { display: flex; align-items: center; gap: 12px; padding: 15px 18px; background: #f1eef7; border: 1px solid #e9e3f1; border-radius: 12px; margin: 0 0 24px; }
+.small-icon { display: grid; place-items: center; width: 34px; height: 34px; flex-shrink: 0; border-radius: 9px; background: #efeaf7; color: #846aad; }
+.start-note .small-icon { background: #e8e0f2; width: 30px; height: 30px; }
+.start-note p { color: #81728e; font-size: 11px; line-height: 1.65; }
+.start-note p strong { color: #675373; font-weight: 650; }
+.start-note > .text-button { flex-shrink: 0; margin-left: auto; white-space: nowrap; }
+.subtle-note { display: flex; gap: 7px; align-items: flex-start; margin: -1px 2px 23px; color: #8c8397; font-size: 10px; }
+.subtle-note svg { margin-top: 1px; }
+.overview-grid { display: grid; grid-template-columns: minmax(0,1fr) 302px; gap: 22px; align-items: start; }
+.overview-left, .overview-right { display: grid; min-width: 0; gap: 22px; }
+.section-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 23px 24px 17px; }
+.section-heading p { margin-top: 5px; color: #8a8294; font-size: 11px; }
+.section-heading > svg { color: #9c90ad; }
+.section-heading .text-button { flex-shrink: 0; }
+.legend-dot { display: flex; align-items: center; gap: 6px; color: #8b8295; font-size: 10px; }
+.legend-dot::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #8a71b8; }
+.chart { position: relative; min-width: 0; padding: 0 17px 16px; min-height: 190px; }
+.chart > svg { width: 100%; height: auto; overflow: visible; }
+.axis-text { font-family: inherit; fill: #9b93a4; font-size: 10px; }
+.limit-label { fill: #b58e70; font-family: inherit; font-size: 10px; }
+.chart-empty > svg { opacity: .6; }
+.chart-placeholder { position: absolute; inset: 36px 15px 30px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 7px; text-align: center; }
+.chart-placeholder svg { color: #b1a4c5; margin-bottom: 3px; }
+.chart-placeholder strong { font-size: 12px; color: #867693; font-weight: 550; }
+.chart-placeholder span { color: #aaa0b3; font-size: 10px; }
+.recent-card { overflow: hidden; }
+.recent-card .section-heading { border-bottom: 1px solid #f2eff6; }
+.empty-register { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 18px 35px; text-align: center; min-height: 195px; }
+.empty-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: #f7f4fb; color: #b09bc8; margin-bottom: 12px; }
+.empty-register strong { font-size: 12px; color: #83758f; font-weight: 550; }
+.empty-register p { margin-top: 6px; color: #a297ab; font-size: 11px; line-height: 1.7; }
+.simulator { padding: 24px; }
+.simulator .small-icon { margin-bottom: 16px; }
+.simulator > p { margin-top: 8px; color: #8b8294; font-size: 11px; line-height: 1.75; }
+.simulator > .time-fields { margin: 20px 0 12px; }
+label { display: flex; flex-direction: column; gap: 7px; color: #655b72; font-size: 12px; font-weight: 550; min-width: 0; }
+input:not([type="file"]), textarea { width: 100%; min-width: 0; border: 1px solid #e4dfeb; border-radius: 8px; padding: 10px 12px; color: #4c405e; background: #fff; font-size: 13px; font-weight: 450; line-height: 1.5; transition: border-color .16s, box-shadow .16s; }
+input:not([type="file"]):hover:not(:disabled), textarea:hover:not(:disabled) { border-color: #cfc3dd; }
+input:not([type="file"]):focus, textarea:focus { border-color: #a18bbb; box-shadow: 0 0 0 3px #ede7f7; }
+input:disabled, textarea:disabled { color: #9d94a7; background: #f6f4f8; }
+input::placeholder, textarea::placeholder { color: #a69bae; font-weight: 400; }
+input[type="date"], input[type="time"] { min-height: 42px; }
+textarea { resize: vertical; min-height: 72px; }
+.time-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
+.time-fields input { font-variant-numeric: tabular-nums; }
+.quick-hours { display: flex; flex-wrap: wrap; gap: 7px; }
+.quick-hours button { min-height: 29px; flex: 1; padding: 5px 7px; border: 1px solid #e8e2ee; border-radius: 6px; background: #faf8fd; color: #8b779e; font-size: 9px; white-space: nowrap; }
+.quick-hours button:hover { color: var(--purple-dark); background: #eee8f7; border-color: #d4c7e5; }
+.simulation-result { display: flex; flex-direction: column; align-items: center; padding: 17px 9px; margin-top: 19px; background: #f3f6f3; border: 1px solid #e9efea; border-radius: 11px; text-align: center; }
+.simulation-result > span { color: #7c8c7e; font-size: 10px; }
+.simulation-result strong { color: #53705a; font-size: 23px; letter-spacing: -.6px; line-height: 1.45; font-variant-numeric: tabular-nums; }
+.simulation-result small { margin-top: 3px; color: #8b998c; font-size: 9px; }
+.simulation-result.danger { background: #fff2ed; border-color: #f2dfd8; }
+.simulation-result.danger span, .simulation-result.danger small { color: #af8274; }
+.simulation-result.danger strong { color: #a15d4c; }
+.tiny { color: #93889c; font-size: 10px; line-height: 1.7; }
+.simulator > .tiny { margin-top: 12px; font-size: 9px; }
+.schedule-note { padding: 3px 9px 0; }
+.schedule-note h3 { display: flex; gap: 8px; align-items: center; color: #82728e; font-size: 12px; margin-bottom: 14px; }
+.schedule-note h3 svg { color: #a48cb8; }
+.schedule-note > div { display: flex; justify-content: space-between; gap: 12px; margin: 9px 0; font-size: 11px; }
+.schedule-note > div span { color: #9a8ea4; }
+.schedule-note > div strong { font-weight: 500; color: #887994; font-variant-numeric: tabular-nums; }
+.schedule-note p { margin-top: 15px; color: #a296ab; font-size: 9px; }
+.page-footer { display: flex; justify-content: center; gap: 7px; align-items: flex-start; margin: 32px 0 0; color: #a79cad; font-size: 9px; text-align: center; line-height: 1.6; }
+.page-footer svg { margin-top: 1px; }
+.register-summary { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 4px 0 22px; font-size: 12px; color: #8c8196; }
+.register-summary strong { color: #5f4e72; margin-right: 4px; }
+.register-card { overflow: hidden; }
+.register-card .section-heading { padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.filter-tabs { display: inline-flex; gap: 4px; padding: 3px; border-radius: 9px; background: #f5f2f9; }
+.filter-tabs button { padding: 8px 12px; min-height: 33px; border: 0; border-radius: 6px; color: #9b8eaa; background: transparent; font-size: 11px; font-weight: 550; }
+.filter-tabs button.selected { color: #75588e; background: white; box-shadow: 0 1px 4px #49335c10; }
+.filter-tabs button:hover:not(.selected) { color: var(--purple-dark); background: #ece6f4; }
+.table-scroll { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; font-size: 11px; }
+th { font-size: 10px; font-weight: 550; color: #9a8da7; background: #fcfbfe; padding: 12px 17px; border-bottom: 1px solid #f0ecf5; }
+td { padding: 15px 17px; border-bottom: 1px solid #f2eef6; color: #86758f; font-variant-numeric: tabular-nums; }
+td:first-child, th:first-child { padding-left: 24px; }
+td:last-child, th:last-child { padding-right: 21px; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: #fdfbff; }
+td strong { font-weight: 550; color: #6d597d; }
+.row-note { display: block; max-width: 190px; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; font-size: 10px; color: #b1a2bd; }
+.row-actions { display: flex; justify-content: flex-end; gap: 2px; }
+.row-actions .icon-button { width: 29px; height: 29px; padding: 6px; }
+.session-time { color: #94829d; font-variant-numeric: tabular-nums; }
+.absence-label { color: #b58572; }
+.duration-pill { display: inline-block; padding: 4px 8px; border-radius: 6px; background: #f4f6f2; color: #93a18b; font-size: 10px; white-space: nowrap; }
+.duration-pill.has-absence { background: #f6eef8; color: #9e7fad; }
+.info-note { display: flex; align-items: flex-start; gap: 10px; padding: 15px 16px; margin-top: 19px; border-radius: 11px; background: #f1edf7; color: #9784a7; }
+.info-note svg { margin-top: 1px; }
+.info-note p { font-size: 11px; line-height: 1.7; }
+.settings-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; }
+.settings-card { padding: 25px; }
+.settings-card .section-heading { padding: 0; margin-bottom: 13px; }
+.settings-card > p { font-size: 12px; line-height: 1.75; color: #9a87aa; margin-top: 8px; }
+.course-rules { margin: 10px 0 0; }
+.course-rules > div { display: flex; justify-content: space-between; align-items: baseline; gap: 15px; padding: 11px 0; border-bottom: 1px solid #f0eaf5; }
+.course-rules > div:last-child { border-bottom: 0; }
+.course-rules dt { font-size: 12px; color: #9f8aaf; }
+.course-rules dd { margin: 0; color: #806291; font-size: 12px; font-weight: 550; text-align: right; }
+.settings-card form { display: grid; gap: 17px; margin-top: 22px; }
+.settings-card form > .button { justify-self: start; margin-top: 2px; }
+.settings-card form > .tiny { margin-top: -6px; }
+.backup-card { display: flex; align-items: center; justify-content: space-between; gap: 25px; grid-column: 1/-1; padding: 26px; }
+.backup-card p { color: #9f8aad; font-size: 12px; margin-top: 7px; max-width: 490px; line-height: 1.7; }
+.button-row { display: flex; flex-wrap: wrap; gap: 10px; flex-shrink: 0; }
+.loading-card { display: flex; flex-direction: column; align-items: center; gap: 13px; min-height: 310px; padding: 60px 30px; text-align: center; }
+.loading-card > svg { color: #a284bb; }
+.loading-card h2 { color: #7d5e91; }
+.loading-card p { max-width: 400px; color: #b09abd; font-size: 12px; }
+.error-banner { display: flex; align-items: center; gap: 13px; padding: 17px 19px; margin-bottom: 20px; border: 1px solid #f0d8d6; border-radius: 12px; background: var(--danger-light); color: var(--danger); }
+.error-banner > div { flex: 1; min-width: 0; }
+.error-banner strong { display: block; font-size: 12px; overflow-wrap: anywhere; }
+.error-banner p { margin-top: 4px; font-size: 10px; color: #b58582; }
+.error-banner .button { flex-shrink: 0; }
+.toast { position: fixed; z-index: 90; right: 28px; bottom: 24px; display: flex; gap: 10px; align-items: center; max-width: min(440px,calc(100vw - 32px)); padding: 16px 20px; border-radius: 12px; border: 1px solid #d8e3d7; background: #f5faf3; color: #657e58; box-shadow: 0 8px 35px #4a594a1a; font-size: 12px; animation: toast-in .22s ease-out; }
+
+.modal { width: min(550px,calc(100vw - 32px)); max-width: calc(100vw - 32px); max-height: 90dvh; margin: auto; padding: 0; border: 1px solid #e6daef; border-radius: 20px; background: white; color: var(--ink); box-shadow: 0 24px 90px #3d2b4e29; overflow-y: auto; overscroll-behavior: contain; }
+.modal::backdrop { background: #30213960; backdrop-filter: blur(3px); }
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; position: sticky; top: 0; z-index: 1; padding: 24px 28px 20px; background: white; border-bottom: 1px solid #f0e9f5; }
+.modal-head .eyebrow { font-size: 9px; color: #b09cbe; letter-spacing: 1.2px; margin-bottom: 5px; }
+.modal-head h2 { font-size: 21px; color: #694b7e; letter-spacing: -.5px; }
+.modal-head .icon-button { background: #f8f3fb; flex-shrink: 0; }
+.modal-body { display: grid; gap: 20px; padding: 24px 28px; }
+.modal-body > p { color: #9c86ac; font-size: 13px; line-height: 1.75; }
+.modal-body > .button { justify-self: start; }
+.modal-body > label { gap: 7px; }
+.modal-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; position: sticky; bottom: 0; z-index: 1; padding: 17px 28px; background: #fff; border-top: 1px solid #f0e9f5; }
+.form-tip { border-radius: 9px; background: #f8f4fc; padding: 13px 14px; color: #a38bb4; font-size: 11px; line-height: 1.7; }
+.form-tip strong { color: #8f6fa6; }
+.session-editor { min-width: 0; margin: 0; padding: 0; border: 0; }
+.session-editor legend { display: flex; align-items: center; gap: 8px; width: 100%; padding: 0; margin-bottom: 11px; color: #8e71a2; font-size: 12px; font-weight: 650; }
+.session-editor legend > svg { color: #b094c4; }
+.session-editor legend > span { margin-left: auto; color: #baa3ca; font-size: 10px; font-weight: 400; }
+.segmented { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 4px; padding: 4px; background: #f8f3fc; border: 1px solid #f2e9f9; border-radius: 9px; }
+.segmented button { min-height: 34px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #b197c4; font-size: 11px; font-weight: 550; padding: 7px 6px; }
+.segmented button.selected { border-color: #e6d5f2; color: #9a71b5; background: white; box-shadow: 0 2px 4px #84619a08; }
+.segmented button:hover:not(:disabled):not(.selected) { background: #f0e6f7; color: #9772ae; }
+.session-editor .time-fields { margin-top: 13px; }
+.session-hint { margin-top: 9px; color: #b69dc7; font-size: 10px; }
+.whole-day { justify-self: start; padding: 0; margin-top: -5px; font-size: 11px; }
+.optional { display: inline; color: #bea4cf; font-size: 10px; font-weight: 400; margin-top: -5px; }
+.draft-total { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 4px 10px; border: 1px solid #ecdef5; border-radius: 11px; padding: 15px 17px; background: #f8f2fc; }
+.draft-total > span { color: #ab8ebd; font-size: 11px; }
+.draft-total > strong { color: #9769b4; font-size: 20px; font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+.draft-total > small { color: #c3a4d6; font-size: 9px; }
+.form-error { padding: 12px 14px; background: #fff0ef; color: #b95f64; border-radius: 8px; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.duplicate-note { padding: 12px 14px; border: 1px solid #f0ddbd; border-radius: 9px; color: #a58555; background: #fffaef; font-size: 11px; }
+.duplicate-note .text-button { display: inline; font-size: 11px; color: #9d7a42; text-decoration: underline; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Readable secondary text and interactive states on pale surfaces. */
+.settings-card > p, .backup-card p, .settings-card form .tiny { color: #81728d; }
+.course-rules dt { color: #81718d; }
+.course-rules dd { color: #694e7d; }
+.info-note { color: #81708f; }
+.modal-head h2 { color: #5a426f; }
+.modal-head .eyebrow { color: #8d789e; }
+.modal-body > p { color: #786485; }
+.form-tip { color: #847092; }
+.form-tip strong { color: #715884; }
+.session-editor legend { color: #755a89; }
+.session-editor legend > span { color: #9480a1; }
+.segmented button { color: #8c739e; }
+.segmented button.selected { color: #71528a; border-color: #d7c0e7; }
+.session-hint { color: #917c9f; }
+.optional { color: #967fa5; }
+.draft-total > span { color: #826591; }
+.draft-total > strong { color: #795091; }
+.draft-total > small { color: #9b7caa; }
+.form-error { color: #a3444b; }
+.loading-card p { color: #92809e; }
+.session-time { color: #82708d; }
+.row-note { color: #9b88a7; }
+.duration-pill { color: #728366; }
+.duration-pill.has-absence { color: #876296; }
+.empty-register p { color: #8e8098; }
+.chart-placeholder span { color: #8e819a; }
+.simulation-result small { color: #748577; }
+.schedule-note > div span { color: #897a94; }
+.schedule-note p { color: #92819d; }
+.page-footer { color: #95879e; }
+
+@media (min-width: 1600px) {
+  .main-content { padding-top: 43px; }
+  .overview-grid { grid-template-columns: minmax(0,1fr) 322px; }
+}
+@media (max-width: 1190px) {
+  .topbar { padding-left: 28px; padding-right: 28px; }
+  .main-content { padding-left: 28px; padding-right: 28px; }
+  .overview-grid { grid-template-columns: minmax(0,1fr) 278px; gap: 18px; }
+  .overview-left, .overview-right { gap: 18px; }
+  .metric { padding: 20px 18px; }
+  .metric > strong { font-size: 22px; }
+  .simulator { padding: 21px; }
+  .section-heading { padding: 21px 20px 15px; }
+  .balance-card { padding-right: 29px; }
+  .balance-number { font-size: 49px; }
+  .start-note { flex-wrap: wrap; }
+  .start-note p { flex: 1; }
+  .start-note > .text-button { margin-left: 42px; }
+  .backup-card { flex-direction: column; align-items: stretch; }
+}
+@media (max-width: 1040px) {
+  .overview-grid { grid-template-columns: minmax(0,1fr); }
+  .overview-right { grid-template-columns: minmax(0,1fr) minmax(0,.9fr); align-items: start; }
+  .schedule-note { padding: 17px 8px; }
+  .page-heading { align-items: flex-start; }
+  .page-heading > .button { margin-top: 21px; }
+  h1 { font-size: 31px; }
+  .page-heading .eyebrow { font-size: 9px; }
+  .balance-card { padding: 27px; }
+  .balance-number { font-size: 45px; gap: 8px; }
+  .balance-number span { font-size: 15px; }
+  .quota-ring { width: 133px; height: 133px; }
+  .quota-ring strong { font-size: 22px; }
+  .settings-grid { grid-template-columns: minmax(0,1fr); }
+  .settings-card { padding: 25px; }
+}
+@media (max-width: 800px) {
+  .sidebar { position: static; width: 100%; height: auto; padding: 18px 22px 12px; border-right: 0; border-bottom: 1px solid var(--line); overflow: visible; }
+  .brand { gap: 10px; margin: 0 0 17px; font-size: 17px; }
+  .brand-icon { width: 34px; height: 36px; border-radius: 10px; }
+  .brand-icon svg { width: 21px; height: 21px; }
+  .brand > span:last-child { display: flex; gap: 4px; }
+  .brand br { display: none; }
+  .nav-label, .sidebar-course, .sidebar-bottom { display: none; }
+  .sidebar nav { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; }
+  .nav-item { justify-content: center; gap: 8px; min-height: 40px; padding: 9px 8px; font-size: 12px; text-align: center; }
+  .nav-item svg:last-child:not(:first-child) { display: none; }
+  .main { margin-left: 0; }
+  .topbar { height: 55px; padding: 0 24px; background: #faf9fd; }
+  .breadcrumb { font-size: 11px; }
+  .sync-state { font-size: 10px; }
+  .main-content { padding: 26px 24px; }
+  .page-heading { margin-bottom: 23px; }
+  h1 { font-size: 30px; }
+  .page-heading p { font-size: 12px; }
+  .page-heading > .button { margin-top: 19px; }
+  .balance-card { min-height: 219px; }
+  .metric-grid { gap: 13px; }
+  .metric { padding: 19px 16px; }
+  .metric > strong { font-size: 22px; }
+  .metric-label { font-size: 10px; }
+  .metric small { font-size: 9px; }
+  .start-note { gap: 9px; margin-bottom: 20px; }
+  .start-note > .text-button { margin-left: 39px; }
+  .overview-grid { gap: 20px; }
+  .overview-left, .overview-right { gap: 20px; }
+  .table-scroll table { min-width: 580px; }
+  .register-card .section-heading { flex-wrap: wrap; gap: 12px; }
+  .settings-grid { gap: 18px; }
+  .settings-card { padding: 24px; }
+  .error-banner { flex-wrap: wrap; }
+  .error-banner > .button { margin-left: 33px; }
+  .toast { right: 16px; bottom: 18px; }
+}
+@media (max-width: 600px) {
+  .sidebar { padding: 16px 16px 10px; }
+  .nav-item { font-size: 11px; gap: 7px; }
+  .nav-item svg { width: 17px; height: 17px; }
+  .topbar { padding: 0 19px; }
+  .breadcrumb { gap: 6px; font-size: 10px; }
+  .sync-state { gap: 5px; font-size: 9px; }
+  .main-content { padding: 24px 18px; }
+  .page-heading { flex-direction: column; align-items: stretch; gap: 17px; }
+  .page-heading > .button { margin-top: 0; min-height: 44px; align-self: flex-start; }
+  h1 { font-size: 29px; }
+  .page-heading .eyebrow { font-size: 9px; letter-spacing: 1px; }
+  .balance-card { padding: 24px; gap: 12px; }
+  .balance-copy .eyebrow { font-size: 9px; letter-spacing: 1px; }
+  .balance-number { font-size: 39px; gap: 7px; margin-top: 13px; letter-spacing: -1.5px; }
+  .balance-number span { font-size: 12px; margin-right: 0; }
+  .balance-copy > p { font-size: 10px; }
+  .status-badge { font-size: 9px; margin-top: 13px; }
+  .quota-ring { width: 110px; height: 110px; }
+  .quota-ring strong { font-size: 20px; }
+  .quota-ring span { font-size: 8px; }
+  .metric-grid { grid-template-columns: minmax(0,1fr); gap: 11px; margin: 16px 0; }
+  .metric { display: grid; grid-template-columns: 40px minmax(0,1fr); grid-template-rows: auto auto auto; min-height: 114px; gap: 1px 14px; padding: 19px; }
+  .metric-icon { grid-column: 1; grid-row: 1/4; width: 38px; height: 38px; margin: 1px 0 0; }
+  .metric-label { grid-column: 2; font-size: 11px; }
+  .metric > strong { grid-column: 2; margin-top: 0; font-size: 23px; }
+  .metric > small { grid-column: 2; margin-top: 1px; font-size: 10px; }
+  .start-note { align-items: flex-start; padding: 15px; gap: 10px; }
+  .start-note .small-icon { margin-top: 2px; }
+  .start-note p { flex: 1; font-size: 10px; }
+  .start-note > .text-button { margin-left: 40px; }
+  .overview-right { grid-template-columns: minmax(0,1fr); }
+  .simulator { padding: 22px; }
+  .simulator .small-icon { margin-bottom: 12px; }
+  .simulator > p { font-size: 12px; }
+  .quick-hours button { font-size: 11px; min-height: 33px; }
+  .simulation-result strong { font-size: 26px; }
+  .simulation-result small, .simulator > .tiny { font-size: 10px; }
+  .schedule-note { padding: 3px 8px 5px; }
+  .schedule-note > div { font-size: 12px; }
+  .schedule-note p { font-size: 10px; }
+  .section-heading { padding: 20px 18px 14px; gap: 10px; }
+  .section-heading h2 { font-size: 16px; }
+  .section-heading p { font-size: 10px; }
+  .legend-dot { font-size: 9px; }
+  .chart { padding: 0 10px 12px; min-height: 171px; }
+  .chart > svg { min-height: 160px; }
+  .chart-placeholder { inset: 45px 12px 18px; gap: 5px; }
+  .chart-placeholder strong { font-size: 11px; }
+  .chart-placeholder span { font-size: 9px; }
+  .empty-register { min-height: 190px; padding: 28px 20px; }
+  .register-summary { gap: 9px 17px; font-size: 11px; }
+  .register-card .section-heading { padding: 15px; }
+  .filter-tabs button { padding: 8px 10px; font-size: 10px; }
+  .register-card .section-heading > .button { margin-left: auto; }
+  .settings-card, .backup-card { padding: 21px; }
+  .settings-card h2, .backup-card h2 { font-size: 16px; }
+  .course-rules dt, .course-rules dd { font-size: 11px; }
+  .backup-card { gap: 18px; }
+  .button-row { width: 100%; flex-direction: column; }
+  .button-row > .button { width: 100%; }
+  .page-footer { margin-top: 26px; text-align: left; font-size: 9px; }
+  .modal { width: calc(100vw - 24px); max-width: calc(100vw - 24px); max-height: 90dvh; border-radius: 17px; }
+  .modal-head { padding: 20px 20px 17px; }
+  .modal-head h2 { font-size: 20px; }
+  .modal-body { padding: 20px; gap: 19px; }
+  .modal-actions { padding: 15px 20px; }
+  .modal-actions .button { flex: 1; padding: 11px 10px; }
+  .time-fields { gap: 10px; }
+  input:not([type="file"]), textarea { font-size: 16px; padding: 10px; }
+  .time-fields input { min-width: 0; max-width: 100%; }
+  .session-editor legend { font-size: 12px; }
+  .session-editor legend > span { font-size: 9px; }
+  .segmented button { min-height: 37px; font-size: 10px; }
+  .whole-day { font-size: 10px; }
+  .draft-total { padding: 13px 14px; }
+  .draft-total > strong { font-size: 19px; }
+}
+@media (max-width: 410px) {
+  .balance-card { flex-direction: column; align-items: stretch; gap: 17px; padding: 23px; }
+  .balance-number { font-size: 46px; gap: 9px; }
+  .balance-number span { font-size: 15px; }
+  .balance-copy > p { font-size: 11px; }
+  .quota-ring { align-self: center; width: 122px; height: 122px; margin: -2px 0 0; }
+  .quota-ring strong { font-size: 22px; }
+  .quota-ring span { font-size: 9px; }
+  .page-heading > .button { align-self: stretch; }
+  .nav-item { gap: 5px; padding-left: 5px; padding-right: 5px; font-size: 10px; }
+  .section-heading .text-button { font-size: 10px; }
+  .breadcrumb > strong { max-width: 89px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .register-card .section-heading > .button { margin-left: 0; }
+  .form-tip { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* The public portfolio demo shares the original dashboard's visual system. */
+[hidden] { display: none !important; }
+.skip-link { position: fixed; left: 12px; top: -80px; z-index: 100; padding: 12px 18px; background: #fff; border: 2px solid var(--purple); border-radius: 8px; }
+.skip-link:focus { top: 12px; }
+.brand img { flex-shrink: 0; }
+.demo-badge { display: inline-flex; align-items: center; min-height: 29px; padding: 5px 10px; border-radius: 20px; background: #eee9f8; color: #65508d; font-size: 11px; font-weight: 650; text-align: center; }
+.demo-notice { display: flex; flex-direction: column; gap: 3px; padding: 14px 18px; margin: -4px 0 22px; border-radius: 12px; border: 1px solid #e5dced; background: #f2eef8; color: #6a5a7c; font-size: 12px; }
+.demo-notice span { color: #776b85; }
+.nav-item > span { width: 20px; color: inherit; font-size: 22px; text-align: center; }
+.status-badge > strong { font-size: inherit; }
+.metric-icon { font-size: 23px; font-weight: 550; }
+.metric > strong > .metric-value { color: #393145; font-size: 24px; font-weight: 650; letter-spacing: -.8px; }
+.small-icon { font-size: 22px; }
+.metric-label, .section-heading p, .simulator > p, .session-time, td, .schedule-note > div span { color: #70647e; }
+.metric small, .tiny, .session-hint, .form-tip, .page-footer { color: #786c85; }
+.metric small, .schedule-note p, .section-heading p, .simulator > p { font-size: 11px; }
+.row-note { color: #86748f; }
+th { color: #796783; }
+.duration-pill { color: #55734c; }
+.duration-pill.has-absence { color: #7c508e; }
+.project-card { padding: 28px 30px; margin-top: 28px; }
+.project-card .eyebrow { color: #8b789d; margin-bottom: 8px; }
+.project-card h2 { font-size: 21px; }
+.project-card p { margin-top: 12px; max-width: 850px; color: #776a83; font-size: 12px; line-height: 1.8; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 19px 0; }
+.project-tags span { padding: 5px 10px; border: 1px solid #e8e1ef; border-radius: 6px; color: #735b88; background: #faf8fd; font-size: 11px; }
+.project-card .project-credit { font-size: 11px; color: #817389; }
+.project-card details { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 17px; }
+.project-card summary { cursor: pointer; font-weight: 600; color: #6a507e; font-size: 12px; }
+.project-card summary:focus-visible { outline: 3px solid #9e85d0; outline-offset: 4px; }
+.table-scroll table { min-width: 550px; }
+.sidebar nav + .sidebar-course { margin-top: max(48px,10vh); }
+.icon-button { font-size: 22px; line-height: 1; }
+.row-actions .icon-button { font-size: 20px; }
+.small-modal { width: min(480px,calc(100vw - 32px)); }
+.whole-day { margin: 5px 0 16px; }
+.no-script { position: fixed; bottom: 15px; left: 15px; right: 15px; z-index: 100; padding: 18px; background: white; border: 2px solid #a23d42; border-radius: 12px; }
+section[id], .page-heading[id] { scroll-margin-top: 20px; }
+.axis-text { fill: #7f718a; }
+.limit-label { fill: #99704f; }
+.quota-ring span { color: #756481; }
+.balance-copy > p { color: #6f5d80; }
+.simulation-result > span, .simulation-result small { color: #617c66; }
+@media(max-width: 800px) {
+  .sidebar { overflow: visible; }
+  .sidebar nav { align-items: stretch; }
+  .nav-item > span { display: none; }
+  .sidebar .brand { margin-bottom: 0; }
+  .topbar { gap: 10px; }
+  .demo-badge { font-size: 10px; }
+  .project-card { padding: 24px; }
+}
+@media(max-width: 600px) {
+  .topbar { min-height: 66px; height: auto; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
+  .demo-badge { width: fit-content; }
+  .demo-notice { font-size: 11px; padding: 13px 14px; }
+  .section-heading { align-items: flex-start; }
+  .section-heading .text-button { font-size: 10px; white-space: nowrap; }
+  .project-card { padding: 22px 20px; }
+  .project-card h2 { font-size: 20px; }
+}
+
+
+</style>
+  
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <aside class="sidebar">
+    <a class="brand" href="#panoramica"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTgiIGZpbGw9IiM3MDU3YTgiLz48cGF0aCBkPSJNMTggMjFoMjh2MjdIMTh6TTI0IDE2djEwbTE2LTEwdjEwTTE4IDMwaDI4IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PHBhdGggZD0ibTI1IDM5IDUgNSAxMC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDZlNmE5IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPgo=" alt="" width="43" height="43"><span>le mie<br><strong>presenze</strong></span></a>
+    <div class="nav-label">PROGETTO PORTFOLIO</div>
+    <nav aria-label="Navigazione"><a class="nav-item active" href="#panoramica"><span aria-hidden="true">▦</span>Panoramica</a><a class="nav-item" href="#registro"><span aria-hidden="true">☷</span>Registro di esempio</a><a class="nav-item" href="#progetto"><span aria-hidden="true">◈</span>Il progetto</a></nav>
+    <div class="sidebar-course"><div class="small-icon" aria-hidden="true">✓</div><strong>Da un bisogno reale</strong><p>Tenere sotto controllo le assenze del corso, un minuto alla volta.</p><span>248 ore · limite del 30%</span></div>
+    <div class="sidebar-bottom"><span class="avatar">KG</span><div><strong>Katia Gesuero</strong><span>Progetto formativo con supporto IA</span></div></div>
+  </aside>
+  <main class="main" id="main">
+    <header class="topbar"><span class="breadcrumb">Portfolio <span aria-hidden="true">›</span><strong>Dashboard assenze</strong></span><span class="demo-badge">Demo pubblica · dati di esempio</span></header>
+    <div class="main-content">
+      <div class="page-heading" id="panoramica"><div><span class="eyebrow">248 ORE · OGNI MINUTO CONTA</span><h1>Le mie presenze</h1><p>Un modo semplice per sapere quanto margine ti resta.</p></div><button class="button primary" id="new-record"><span aria-hidden="true">＋</span>Registra giornata</button></div>
+      <div class="demo-notice"><strong>Questa è una dimostrazione interattiva.</strong><span>I valori sono inventati per mostrare il funzionamento. Puoi modificarli liberamente. Le prove si azzerano ricaricando la pagina.</span></div>
+      <section class="balance-card" id="balance-card" aria-label="Margine di assenza"><div class="balance-copy"><span class="eyebrow" id="balance-label">IL MARGINE DISPONIBILE</span><div class="balance-number" id="balance-number">68<span>ore</span>39<span>min</span></div><p id="balance-explanation">Ancora disponibili, in base alle giornate di esempio.</p><div class="status-badge" id="status-badge"><span></span><strong id="status-text">Entro il limite</strong></div></div><div class="quota-ring"><svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="80" r="65" fill="none" stroke="#e2dfed" stroke-width="12"></circle><circle id="quota-arc" cx="80" cy="80" r="65" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" transform="rotate(-90 80 80)"></circle></svg><div><strong id="quota-percent">7,73%</strong><span>del margine<br>utilizzato</span></div></div></section>
+      <div class="metric-grid"><section class="card metric"><span class="metric-icon lavender" aria-hidden="true">◷</span><span class="metric-label">Assenze accumulate</span><strong id="absence-total">5 h 45 min</strong><small id="record-count">3 giornate di esempio</small></section><section class="card metric"><span class="metric-icon peach" aria-hidden="true">%</span><span class="metric-label">Assenze sul corso</span><strong><span id="absence-percent" class="metric-value">2,32%</span><span> / 30%</span></strong><small>Calcolate sulle 248 ore totali</small></section><section class="card metric"><span class="metric-icon green" aria-hidden="true">✓</span><span class="metric-label">Limite da rispettare</span><strong>74 h 24 min</strong><small>Il 30% di 248 ore, al minuto</small></section></div>
+      <div class="overview-grid"><div class="overview-left"><section class="card trend-card"><div class="section-heading"><div><h2>Un giorno alla volta</h2><p>Andamento cumulativo delle assenze di esempio</p></div><span class="legend-dot">Assenze</span></div><div class="chart" id="trend-chart"></div></section><section class="card recent-card" id="registro"><div class="section-heading"><div><h2>Il registro delle giornate</h2><p>Modifica un orario e osserva come cambiano i totali</p></div><button class="text-button" id="export-csv">↓ Esporta CSV</button></div><div class="table-scroll"><table><thead><tr><th scope="col">Giornata</th><th scope="col">Mattino</th><th scope="col">Pomeriggio</th><th scope="col">Assenza</th><th scope="col"><span class="sr-only">Azioni</span></th></tr></thead><tbody id="records-body"></tbody></table></div><p id="empty-records" hidden class="empty-register">Nessuna giornata. Aggiungine una oppure ripristina i dati di esempio.</p></section></div><div class="overview-right"><section class="card simulator"><div class="small-icon" aria-hidden="true">✧</div><h2>Prima di assentarti</h2><p>Prova un’assenza futura. La simulazione non modifica il registro.</p><div class="time-fields"><label for="sim-hours">Ore<input id="sim-hours" type="number" value="0" min="0" max="248" step="1"></label><label for="sim-minutes">Minuti<input id="sim-minutes" type="number" value="0" min="0" max="59" step="1"></label></div><div class="quick-hours"><button type="button" data-sim="4">Mezza giornata</button><button type="button" data-sim="8">Una giornata</button></div><div class="simulation-result" id="sim-result" aria-live="polite"></div></section><section class="schedule-note"><h3>◷ Le ore di lezione</h3><div><span>Mattino</span><strong>09:00 — 13:00</strong></div><div><span>Pomeriggio</span><strong>14:00 — 18:00</strong></div><p>La pausa 13:00–14:00 è sempre esclusa.</p></section><button class="button secondary" id="reset-demo">↺ Ripristina dati di esempio</button></div></div>
+      <section class="card project-card" id="progetto"><div><span class="eyebrow">DAL PROBLEMA ALLA SOLUZIONE</span><h2>Un piccolo progetto, un’esigenza concreta.</h2><p>Come trasformare gli orari annotati durante un corso in un indicatore utile per decidere? Questa dashboard nasce per visualizzare assenze, percentuali e margine residuo, con regole di calcolo esplicite e verificabili.</p></div><div class="project-tags"><span>Problem solving</span><span>Visualizzazione dati</span><span>Progettazione funzionale</span><span>Uso consapevole dell’IA</span></div><p class="project-credit">Ideazione del bisogno e definizione dei requisiti: <strong>Katia Gesuero</strong>. Realizzazione del prototipo con supporto IA. La versione pubblica utilizza esclusivamente dati dimostrativi.</p><details><summary>Come vengono calcolate le assenze?</summary><p>Ogni fascia dura 240 minuti. La presenza è l’intersezione tra l’intervallo effettivo di entrata/uscita e l’orario di lezione. I minuti rimanenti sono assenza. Le due fasce vengono calcolate separatamente: la pausa pranzo è esclusa e il tempo prima o dopo le lezioni non compensa i ritardi.</p><p>Il limite è 4.464 minuti: a 74 h 24 min è raggiunto, a 74 h 25 min è superato. La soglia di attenzione al 25% è un aiuto visivo della dashboard. Il conteggio è al minuto e va confrontato con le regole del proprio ente.</p></details></section>
+      <footer class="page-footer">Katia Gesuero · Progetto formativo realizzato con supporto IA · Demo pubblica con dati di esempio</footer>
+    </div>
+  </main>
+  <dialog class="modal" id="record-dialog" aria-labelledby="dialog-title"><form id="record-form"><div class="modal-head"><div><span class="eyebrow">PROVA IL REGISTRO</span><h2 id="dialog-title">Registra una giornata</h2></div><button class="icon-button" type="button" data-close="record-dialog" aria-label="Chiudi finestra">✕</button></div><div class="modal-body"><input id="record-id" type="hidden"><label for="record-date">Data della lezione<input id="record-date" type="date" required></label><p class="form-tip">Scegli <strong>Orari diversi</strong> e modifica soltanto l’entrata o l’uscita: gli altri orari sono già impostati.</p><fieldset class="session-editor"><legend>☀ Mattino<span>09:00–13:00</span></legend><div class="segmented" role="group" aria-label="Stato mattino"><button type="button" data-session="morning" data-mode="regular">Presente</button><button type="button" data-session="morning" data-mode="custom">Orari diversi</button><button type="button" data-session="morning" data-mode="absent">Assente</button></div><div class="time-fields" id="morning-fields"><label for="morning-entry">Entrata mattino<input id="morning-entry" type="time" step="60" required value="09:00"></label><label for="morning-exit">Uscita mattino<input id="morning-exit" type="time" step="60" required value="13:00"></label></div><p class="session-hint" id="morning-hint"></p></fieldset><fieldset class="session-editor"><legend>☾ Pomeriggio<span>14:00–18:00</span></legend><div class="segmented" role="group" aria-label="Stato pomeriggio"><button type="button" data-session="afternoon" data-mode="regular">Presente</button><button type="button" data-session="afternoon" data-mode="custom">Orari diversi</button><button type="button" data-session="afternoon" data-mode="absent">Assente</button></div><div class="time-fields" id="afternoon-fields"><label for="afternoon-entry">Entrata pomeriggio<input id="afternoon-entry" type="time" step="60" required value="14:00"></label><label for="afternoon-exit">Uscita pomeriggio<input id="afternoon-exit" type="time" step="60" required value="18:00"></label></div><p class="session-hint" id="afternoon-hint"></p></fieldset><button type="button" class="text-button whole-day" id="whole-day">Assente per tutta la giornata (8 ore)</button><label for="record-notes">Nota dimostrativa <span class="optional">facoltativa</span><textarea id="record-notes" rows="2" maxlength="500" placeholder="Usa una nota di esempio, senza dati personali"></textarea></label><div class="draft-total" aria-live="polite"><span>Assenza della giornata</span><strong id="draft-total">0 min</strong><small>Pausa pranzo esclusa</small></div><p class="form-error" id="form-error" role="status"></p></div><div class="modal-actions"><button type="button" class="button secondary" data-close="record-dialog">Annulla</button><button type="submit" class="button primary" id="save-record">Salva nella demo</button></div></form></dialog>
+  <dialog class="modal small-modal" id="confirm-dialog" aria-labelledby="confirm-title"><div class="modal-head"><h2 id="confirm-title">Conferma</h2><button class="icon-button" type="button" data-close="confirm-dialog" aria-label="Chiudi finestra">✕</button></div><div class="modal-body"><p id="confirm-message"></p></div><div class="modal-actions"><button class="button secondary" type="button" data-close="confirm-dialog">Annulla</button><button class="button primary" type="button" id="confirm-action">Conferma</button></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <noscript><div class="no-script">Per provare la dashboard è necessario abilitare JavaScript. Il codice è consultabile nel repository del progetto.</div></noscript>
+
+<script>
+(function (root, factory) {
+  if (typeof module === "object" && module.exports) module.exports = factory();
+  else root.AttendanceMath = factory();
+})(typeof globalThis !== "undefined" ? globalThis : this, function () {
+  "use strict";
+  const TOTAL_MINUTES = 248 * 60;
+  const LIMIT_MINUTES = 4464;
+  const regularMorning = { mode: "regular", entry: "09:00", exit: "13:00" };
+  const regularAfternoon = { mode: "regular", entry: "14:00", exit: "18:00" };
+  const copy = (value) => JSON.parse(JSON.stringify(value));
+  const parseTime = (value) => { const [h, m] = value.split(":").map(Number); return h * 60 + m; };
+  function sessionAbsence(session, which) {
+    if (session.mode === "regular") return 0;
+    if (session.mode === "absent") return 240;
+    const start = which === "morning" ? 540 : 840;
+    return 240 - Math.max(0, Math.min(parseTime(session.exit), start + 240) - Math.max(parseTime(session.entry), start));
+  }
+  function recordAbsence(record) { return sessionAbsence(record.morning, "morning") + sessionAbsence(record.afternoon, "afternoon"); }
+  function summary(records) {
+    const absenceMinutes = records.reduce((sum, record) => sum + recordAbsence(record), 0);
+    const remainingMinutes = Math.max(0, LIMIT_MINUTES - absenceMinutes);
+    let status = "ok";
+    if (absenceMinutes > LIMIT_MINUTES) status = "exceeded";
+    else if (absenceMinutes === LIMIT_MINUTES) status = "limit";
+    else if (remainingMinutes < 480) status = "critical";
+    else if (absenceMinutes >= TOTAL_MINUTES / 4) status = "attention";
+    else if (!records.length) status = "empty";
+    return { absenceMinutes, remainingMinutes, overMinutes: Math.max(0, absenceMinutes - LIMIT_MINUTES), percent: absenceMinutes / TOTAL_MINUTES * 100, quotaPercent: absenceMinutes / LIMIT_MINUTES * 100, status };
+  }
+  function formatMinutes(value) { const total = Math.round(Math.abs(value)); const hours = Math.floor(total / 60); const minutes = total % 60; return (value < 0 ? "−" : "") + (hours ? hours + " h" + (minutes ? " " + minutes + " min" : "") : minutes + " min"); }
+  function formatPercent(value) { return new Intl.NumberFormat("it-IT", { maximumFractionDigits: 2 }).format(value) + "%"; }
+  function todayRome(now = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
+    return ["year", "month", "day"].map((type) => parts.find((part) => part.type === type).value).join("-");
+  }
+  function validDate(value) { if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false; const d = new Date(value + "T12:00:00Z"); return Number.isFinite(d.getTime()) && d.toISOString().slice(0, 10) === value; }
+  function validateRecords(records, today = todayRome()) {
+    if (!Array.isArray(records) || records.length > 500) return "Il registro può contenere al massimo 500 giornate.";
+    const dates = new Set(); const ids = new Set(); let total = 0;
+    for (const record of records) {
+      if (!record || typeof record.id !== "string" || !record.id) return "Registrazione non valida.";
+      if (ids.has(record.id)) return "Identificativo duplicato.";
+      ids.add(record.id);
+      if (!validDate(record.date)) return "Inserisci una data valida.";
+      if (record.date > today) return "Per le assenze future usa il simulatore.";
+      if (dates.has(record.date)) return "Questa data è già registrata. Modifica la giornata esistente.";
+      dates.add(record.date);
+      for (const which of ["morning", "afternoon"]) {
+        const session = record[which]; const label = which === "morning" ? "Mattino" : "Pomeriggio";
+        if (!session || !["regular", "custom", "absent"].includes(session.mode)) return label + ": scegli uno stato.";
+        if (session.mode === "custom") {
+          const regex = /^([01]\d|2[0-3]):[0-5]\d$/;
+          if (!regex.test(session.entry) || !regex.test(session.exit)) return label + ": completa entrata e uscita.";
+          if (parseTime(session.exit) < parseTime(session.entry)) return label + ": l’uscita non può precedere l’entrata.";
+        }
+      }
+      if (typeof record.notes !== "string" || record.notes.length > 500) return "La nota può contenere al massimo 500 caratteri.";
+      total += recordAbsence(record);
+    }
+    if (total > TOTAL_MINUTES) return "Le assenze superano la durata del corso di 248 ore. Controlla i dati.";
+    return null;
+  }
+  function createRecord(date = todayRome()) { return { id: "day-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10), date, morning: copy(regularMorning), afternoon: copy(regularAfternoon), notes: "" }; }
+  function sampleRecords() {
+    return [
+      { id: "example-1", date: "2026-10-12", morning: { mode: "custom", entry: "09:30", exit: "13:00" }, afternoon: copy(regularAfternoon), notes: "Esempio: ritardo di 30 minuti" },
+      { id: "example-2", date: "2026-10-13", morning: copy(regularMorning), afternoon: { mode: "custom", entry: "14:00", exit: "17:15" }, notes: "Esempio: uscita anticipata" },
+      { id: "example-3", date: "2026-10-14", morning: { ...regularMorning, mode: "absent" }, afternoon: { mode: "custom", entry: "14:30", exit: "18:00" }, notes: "Esempio: mattino assente e rientro alle 14:30" }
+    ];
+  }
+  return { TOTAL_MINUTES, LIMIT_MINUTES, regularMorning, regularAfternoon, copy, sessionAbsence, recordAbsence, summary, formatMinutes, formatPercent, todayRome, validateRecords, createRecord, sampleRecords };
+});
+
+</script>
+<script>
+(function () {
+  "use strict";
+  const A = window.AttendanceMath;
+  const $ = (id) => document.getElementById(id);
+  let records = A.sampleRecords();
+  let modes = { morning: "regular", afternoon: "regular" };
+  let pendingConfirmation = null;
+  let toastTimer;
+  const labels = { empty: "Nessuna giornata registrata", ok: "Entro il limite", attention: "Attenzione al margine", critical: "Margine ridotto", limit: "Limite raggiunto", exceeded: "Limite superato" };
+  function escapeHtml(value) { return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char])); }
+  function dateText(value, short = true) { return new Date(value + "T12:00:00").toLocaleDateString("it-IT", { day: "numeric", month: short ? "short" : "long", ...(short ? {} : { year: "numeric" }) }); }
+  function sessionText(session, which) { return session.mode === "absent" ? "Assente" : session.mode === "regular" ? (which === "morning" ? "09:00–13:00" : "14:00–18:00") : session.entry + "–" + session.exit; }
+  function notify(text) { clearTimeout(toastTimer); $("toast").textContent = text; $("toast").hidden = false; toastTimer = setTimeout(() => { $("toast").hidden = true; }, 4000); }
+  function render() {
+    const summary = A.summary(records);
+    const display = summary.overMinutes || summary.remainingMinutes;
+    $("balance-card").className = "balance-card status-" + summary.status;
+    $("balance-label").textContent = summary.overMinutes ? "OLTRE IL LIMITE CONSENTITO" : "IL MARGINE DISPONIBILE";
+    $("balance-number").innerHTML = Math.floor(display / 60) + "<span>ore</span>" + display % 60 + "<span>min</span>";
+    $("balance-explanation").textContent = summary.overMinutes ? "Con questi dati di prova, il totale supera il limite consentito." : summary.status === "limit" ? "Limite esatto raggiunto: non rimangono minuti disponibili." : summary.status === "critical" ? "Resta meno di una giornata completa: ogni minuto conta." : summary.status === "attention" ? "Raggiunta la soglia di attenzione del 25% del corso." : summary.status === "empty" ? "Disponibilità teorica. Nessuna giornata presente nella demo." : "Ancora disponibili, in base alle giornate della demo.";
+    $("status-badge").className = "status-badge status-" + summary.status;
+    $("status-text").textContent = labels[summary.status];
+    $("quota-percent").textContent = A.formatPercent(summary.quotaPercent);
+    $("quota-arc").setAttribute("stroke-dasharray", Math.min(100, summary.quotaPercent) / 100 * 408.407 + " 408.407");
+    $("absence-total").textContent = A.formatMinutes(summary.absenceMinutes);
+    $("absence-percent").textContent = A.formatPercent(summary.percent);
+    $("record-count").textContent = records.length + (records.length === 1 ? " giornata nella demo" : " giornate nella demo");
+    const sorted = [...records].sort((a, b) => b.date.localeCompare(a.date));
+    $("records-body").innerHTML = sorted.map((record) => {
+      const absence = A.recordAbsence(record);
+      return '<tr><td><strong>' + escapeHtml(dateText(record.date)) + '</strong>' + (record.notes ? '<span class="row-note" title="' + escapeHtml(record.notes) + '">' + escapeHtml(record.notes) + '</span>' : '') + '</td><td><span class="' + (record.morning.mode === "absent" ? "absence-label" : "session-time") + '">' + escapeHtml(sessionText(record.morning, "morning")) + '</span></td><td><span class="' + (record.afternoon.mode === "absent" ? "absence-label" : "session-time") + '">' + escapeHtml(sessionText(record.afternoon, "afternoon")) + '</span></td><td><span class="duration-pill ' + (absence ? "has-absence" : "") + '">' + A.formatMinutes(absence) + '</span></td><td><div class="row-actions"><button class="icon-button" data-action="edit" data-id="' + escapeHtml(record.id) + '" aria-label="Modifica giornata ' + escapeHtml(dateText(record.date, false)) + '" title="Modifica">✎</button><button class="icon-button delete" data-action="delete" data-id="' + escapeHtml(record.id) + '" aria-label="Elimina giornata ' + escapeHtml(dateText(record.date, false)) + '" title="Elimina">×</button></div></td></tr>';
+    }).join("");
+    $("empty-records").hidden = records.length > 0;
+    renderChart(); renderSimulator();
+  }
+  function renderChart() {
+    const sorted = [...records].sort((a, b) => a.date.localeCompare(b.date));
+    let total = 0;
+    const values = [0, ...sorted.map((record) => total += A.recordAbsence(record))];
+    const maxHours = Math.max(80, Math.ceil(total / 1200) * 20);
+    const x = (index) => 42 + index / Math.max(1, values.length - 1) * 574;
+    const y = (value) => 160 - value / (maxHours * 60) * 132;
+    const points = values.map((value, index) => x(index) + "," + y(value)).join(" ");
+    let svg = '<svg viewBox="0 0 646 190" role="img" aria-label="Assenze cumulative della demo: ' + A.formatMinutes(total) + '. Limite 74 ore e 24 minuti.">';
+    for (const hour of [0, maxHours / 2, maxHours]) svg += '<line x1="42" x2="616" y1="' + y(hour * 60) + '" y2="' + y(hour * 60) + '" stroke="#edeaf3"></line><text x="30" y="' + (y(hour * 60) + 4) + '" text-anchor="end" class="axis-text">' + hour + 'h</text>';
+    if (sorted.length) {
+      svg += '<polygon points="42,160 ' + points + ' ' + x(values.length - 1) + ',160" fill="#eee9f8"></polygon><polyline points="' + points + '" fill="none" stroke="#7560b5" stroke-width="2.5" stroke-linejoin="round"></polyline>';
+      values.forEach((value, index) => { svg += '<circle cx="' + x(index) + '" cy="' + y(value) + '" r="3.5" fill="#7560b5"><title>' + escapeHtml(index ? dateText(sorted[index - 1].date) : "Inizio") + ": " + A.formatMinutes(value) + '</title></circle>'; });
+    }
+    svg += '<line x1="42" x2="616" y1="' + y(A.LIMIT_MINUTES) + '" y2="' + y(A.LIMIT_MINUTES) + '" stroke="#a77955" stroke-dasharray="5 5"></line><text x="612" y="' + (y(A.LIMIT_MINUTES) - 7) + '" text-anchor="end" class="limit-label">Limite · 74 h 24 min</text><text x="42" y="183" class="axis-text">Inizio</text><text x="616" y="183" text-anchor="end" class="axis-text">' + (sorted.length ? escapeHtml(dateText(sorted[sorted.length - 1].date)) : "Nessun dato") + '</text></svg>';
+    $("trend-chart").innerHTML = svg;
+  }
+  function renderSimulator() {
+    const h = Number($("sim-hours").value); const m = Number($("sim-minutes").value);
+    if (!Number.isInteger(h) || h < 0 || h > 248 || !Number.isInteger(m) || m < 0 || m > 59) { $("sim-result").className = "simulation-result danger"; $("sim-result").innerHTML = "<strong>Inserisci ore e minuti validi.</strong>"; return; }
+    const absence = A.summary(records).absenceMinutes + h * 60 + m;
+    const remaining = A.LIMIT_MINUTES - absence;
+    $("sim-result").className = "simulation-result" + (remaining <= 0 ? " danger" : "");
+    $("sim-result").innerHTML = "<span>" + (remaining < 0 ? "Supereresti il limite di" : remaining === 0 ? "Raggiungeresti il limite" : "Ti resterebbero") + "</span><strong>" + A.formatMinutes(Math.abs(remaining)) + "</strong><small>" + A.formatPercent(absence / A.TOTAL_MINUTES * 100) + " di assenze sul corso</small>";
+  }
+  function setMode(which, mode) {
+    modes[which] = mode;
+    document.querySelectorAll('[data-session="' + which + '"]').forEach((button) => { const active = button.dataset.mode === mode; button.classList.toggle("selected", active); button.setAttribute("aria-pressed", String(active)); });
+    $(which + "-fields").hidden = mode !== "custom";
+    $(which + "-entry").disabled = mode !== "custom";
+    $(which + "-exit").disabled = mode !== "custom";
+    $(which + "-hint").hidden = mode === "custom";
+    $(which + "-hint").textContent = mode === "absent" ? "4 ore di assenza in questa fascia." : "Tutta la fascia frequentata: nessuna assenza.";
+  }
+  function readForm() {
+    return { id: $("record-id").value, date: $("record-date").value, morning: { mode: modes.morning, entry: $("morning-entry").value, exit: $("morning-exit").value }, afternoon: { mode: modes.afternoon, entry: $("afternoon-entry").value, exit: $("afternoon-exit").value }, notes: $("record-notes").value.trim() };
+  }
+  function previewForm() {
+    const record = readForm(); const candidate = [...records.filter((day) => day.id !== record.id), record];
+    const error = A.validateRecords(candidate);
+    $("form-error").textContent = error || "";
+    $("save-record").disabled = !!error;
+    $("draft-total").textContent = error ? "Completa i dati" : A.formatMinutes(A.recordAbsence(record));
+  }
+  function openRecord(existing) {
+    const record = A.copy(existing || A.createRecord());
+    $("dialog-title").textContent = existing ? "Modifica giornata" : "Registra una giornata";
+    $("record-id").value = record.id; $("record-date").value = record.date; $("record-date").max = A.todayRome(); $("record-notes").value = record.notes;
+    for (const which of ["morning", "afternoon"]) { $(which + "-entry").value = record[which].entry; $(which + "-exit").value = record[which].exit; setMode(which, record[which].mode); }
+    previewForm(); $("record-dialog").showModal(); $("record-date").focus();
+  }
+  function confirm(title, message, action) { pendingConfirmation = action; $("confirm-title").textContent = title; $("confirm-message").textContent = message; $("confirm-dialog").showModal(); }
+  $("new-record").addEventListener("click", () => openRecord());
+  $("record-form").addEventListener("input", previewForm);
+  $("record-form").addEventListener("submit", (event) => { event.preventDefault(); const record = readForm(); const candidate = [...records.filter((day) => day.id !== record.id), record]; const error = A.validateRecords(candidate); if (error) { previewForm(); return; } records = candidate; $("record-dialog").close(); render(); notify("Giornata salvata nella demo. I totali sono aggiornati."); });
+  document.querySelectorAll("[data-session]").forEach((button) => button.addEventListener("click", () => { setMode(button.dataset.session, button.dataset.mode); previewForm(); }));
+  document.querySelectorAll("[data-close]").forEach((button) => button.addEventListener("click", () => $(button.dataset.close).close()));
+  $("whole-day").addEventListener("click", () => { setMode("morning", "absent"); setMode("afternoon", "absent"); previewForm(); });
+  $("records-body").addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-action]"); if (!button) return;
+    const record = records.find((day) => day.id === button.dataset.id); if (!record) return;
+    if (button.dataset.action === "edit") openRecord(record);
+    else confirm("Eliminare questa giornata?", "La registrazione dimostrativa del " + dateText(record.date, false) + " verrà rimossa e i totali saranno ricalcolati.", () => { records = records.filter((day) => day.id !== record.id); render(); notify("Giornata rimossa dalla demo."); });
+  });
+  $("confirm-action").addEventListener("click", () => { if (pendingConfirmation) pendingConfirmation(); pendingConfirmation = null; $("confirm-dialog").close(); });
+  $("confirm-dialog").addEventListener("close", () => { pendingConfirmation = null; });
+  $("reset-demo").addEventListener("click", () => confirm("Ripristinare la demo?", "Le modifiche della visita corrente verranno sostituite dalle tre giornate di esempio iniziali.", () => { records = A.sampleRecords(); $("sim-hours").value = "0"; $("sim-minutes").value = "0"; render(); notify("Ripristinati i dati di esempio."); }));
+  ["sim-hours", "sim-minutes"].forEach((id) => $(id).addEventListener("input", renderSimulator));
+  document.querySelectorAll("[data-sim]").forEach((button) => button.addEventListener("click", () => { $("sim-hours").value = button.dataset.sim; $("sim-minutes").value = "0"; renderSimulator(); }));
+  $("export-csv").addEventListener("click", () => {
+    const quote = (value) => { const text = String(value); return '"' + (/^[=+\-@\t\r]/.test(text) ? "'" + text : text).replace(/"/g, '""') + '"'; };
+    const rows = [["Data (demo)", "Mattino", "Pomeriggio", "Assenza minuti", "Assenza ore:minuti", "Nota dimostrativa"], ...[...records].sort((a, b) => a.date.localeCompare(b.date)).map((record) => { const m = A.recordAbsence(record); return [record.date, sessionText(record.morning, "morning"), sessionText(record.afternoon, "afternoon"), m, Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0"), record.notes]; })];
+    const url = URL.createObjectURL(new Blob(["\uFEFF" + rows.map((row) => row.map(quote).join(";")).join("\r\n")], { type: "text/csv;charset=utf-8;" }));
+    const link = document.createElement("a"); link.href = url; link.download = "demo_registro_assenze.csv"; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); notify("Esportato il CSV dei dati dimostrativi.");
+  });
+  document.querySelectorAll(".sidebar nav a").forEach((link) => link.addEventListener("click", () => { document.querySelectorAll(".sidebar nav a").forEach((item) => item.classList.remove("active")); link.classList.add("active"); }));
+  render();
+})();
+
+</script>
+</body>
+</html>
